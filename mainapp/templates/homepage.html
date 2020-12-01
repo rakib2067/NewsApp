@@ -2,12 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    
 
     <!-- Bootstrap CSS -->
     <link
@@ -17,7 +12,7 @@
       crossorigin="anonymous"
     />
 
-    <title>Home Page</title>
+    <title>{% block title %}Home Page {% endblock %}</title>
   </head>
   <body>
     <!--Navbar-->
@@ -28,7 +23,7 @@
           class="navbar-toggler"
           type="button"
           data-toggle="collapse"
-          data-target="#navbarNav"
+          data-target="#navbarNav"  
           aria-controls="navbarNav"
           aria-expanded="false"
           aria-label="Toggle navigation"
@@ -49,7 +44,17 @@
           </ul>
         </div>
       </div>
-    </nav>
+    </nav> 
+    {% block content %}
+    {% endblock %}
+    <hr/>
+  <footer class="text-muted">
+    <div class="container">
+      <p class="float-right">
+        <a href="#">Back to top<a>
+      </p>
+    </div>
+  </footer>
 
     <script
       src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
