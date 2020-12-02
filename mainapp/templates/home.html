@@ -58,27 +58,29 @@
       <!--Left-->
       <div class="col-md-7">
         <div class="card mb-3">
-          <img src='{{latest.image.url}}' class="card-img-top" alt="news1">
-          <div class="card body">
+          <img src='{{latest.image.url}}' class="card-img-top" alt="{{latest.title}}">
+          <div class="card-body">
             <h5 class="card-title">{{latest.title}}</h5>
             <hr />
             <p class="card-text">
               <a href="#" class="btn btn-sm btn-primary">Read Full</a>
+              <a href="/description/{{latest.id}}" class="btn btn-sm btn-primary">Read Full</a>
             </p>
           </div>
         </div>
       </div>
       <!--Right-->
-      <div class="col-md-5" style="max-height:450px; overflow: auto;">
+      <div class="col-md-5">
+        {% for news in corresponding%}
         <div class="card">
           <div class="row no-gutters">
             <div class="col-md-4">
-              <img src="" class="card-img">
+              <img src='{{news.image.url}}' class="card-img-top" alt="{{news.title}}">
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title">Card Title</h5>
-                <p class="card-text"><a href="#" class="btn btn-sm btn-primary">Read Full</a></p>
+                <h5 class="card-title">{{news.title}}</h5>
+                <p class="card-text"><a href="/description/{{news.id}}" class="btn btn-sm btn-primary">Read Full</a></p>
               </div>
             </div>
           </div>
@@ -141,8 +143,12 @@
             <p class="card-text"><a href="#" class="btn btn-sm btn-primary">Read Full</a></p>
           </div>
         </div>
+        <hr />
+        {% endfor %}
+
       </div>
     </div>
+
   </main>
   <hr />
   <footer class="text-muted">
