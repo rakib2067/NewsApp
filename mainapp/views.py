@@ -13,7 +13,7 @@ from django.conf.urls.static import static
 from .models import News
 def home(request):
     latest=News.objects.first()
-    corresponding=News.objects.all()[1:4]
+    corresponding=News.objects.all()[1:5]
     #Fetches the first news article in the db
     #Then fetches the next 3, setting a limit, skipping the already getched first and up to 3
     return render(request,'home.html',{
