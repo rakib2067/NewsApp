@@ -1,47 +1,150 @@
 {% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
 
-  <title>Home Page</title>
+  <title>Home Page </title>
 </head>
 
 <body>
-  <div class='container border bg-light mt-3'>
-    {% if messages %}
-    {% for message in messages%}
-    <div class="alert alert-{{message.tags}}">
-      {{message}}
-    </div>
-    {% endfor %}
-    {% endif %}
-    <div class='jumbotron d-flex'>
-      <div class='mr-auto'>
-        <div class='h1'>
-          QM News
-        </div>
-        <div class='h3 text-secondary'>
-          Keeping you in the know
-        </div>
-      </div>
-      <div class='ml auto'>
-
-      </div>
-    </div>
-
-    <ul>
-
-    </ul>
-
+  {% if messages %}
+  {% for message in messages%}
+  <div class="alert alert-{{message.tags}}">
+    {{message}}
   </div>
+  {% endfor %}
+  {% endif %}
+  <!--Navbar-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <div class="container">
+      <a class="navbar-brand" href="#">QM News</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">All News</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">All Categories</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!--Main-->
+  <main class="container mt-3 mb-5">
+    <p class='h1'>Latest News</p>
+    <div class="row my-3">
+      <!--Left-->
+      <div class="col-md-7">
+        <div class="card mb-3">
+          <img src='{{latest.image.url}}' class="card-img-top" alt="news1">
+          <div class="card body">
+            <h5 class="card-title">{{latest.title}}</h5>
+            <hr />
+            <p class="card-text">
+              <a href="#" class="btn btn-sm btn-primary">Read Full</a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--Right-->
+      <div class="col-md-5" style="max-height:450px; overflow: auto;">
+        <div class="card">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="" class="card-img">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">Card Title</h5>
+                <p class="card-text"><a href="#" class="btn btn-sm btn-primary">Read Full</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="card">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="" class="card-img">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">Card Title</h5>
+                <p class="card-text"><a href="#" class="btn btn-sm btn-primary">Read Full</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3 class="border-bottom pb-1">Category<a href="#" class="float-right btn btn-sm btn-dark">In this Category</a></h3>
+    <div class="row my-4">
+      <div class="col-md-3">
+        <div class="card mb-3 shadow">
+          <img src="" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <hr />
+            <p class="card-text"><a href="#" class="btn btn-sm btn-primary">Read Full</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card mb-3 shadow">
+          <img src="" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <hr />
+            <p class="card-text"><a href="#" class="btn btn-sm btn-primary">Read Full</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card mb-3 shadow">
+          <img src="" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <hr />
+            <p class="card-text"><a href="#" class="btn btn-sm btn-primary">Read Full</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card mb-3 shadow">
+          <img src="" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <hr />
+            <p class="card-text"><a href="#" class="btn btn-sm btn-primary">Read Full</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <hr />
+  <footer class="text-muted">
+    <div class="container">
+      <p class="float-right">
+        <a href="#">Back to top<a>
+      </p>
+    </div>
+  </footer>
+
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
     crossorigin="anonymous"></script>
