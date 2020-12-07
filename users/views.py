@@ -4,7 +4,7 @@ from .forms import UserRegisterForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
 from django.conf.urls.static import static
 from django.urls import path 
-
+from mainapp.models import Category
 def register(request):
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
@@ -29,5 +29,7 @@ def register(request):
 
 @login_required
 def profile(request):
-    
-    return render(request, 'users/profile.html')
+    categories=Category.objects.all()
+    return render(request, 'users/profile.html',{
+        'cats':categories,
+    })

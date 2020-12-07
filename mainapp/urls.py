@@ -7,7 +7,6 @@ from django.contrib.auth import views as auth_views
 from users import views as user_views
 urlpatterns = [
     path('', views.home, name='home' ),
-    # path('description/', views.description, name='description'),
     path('description/<int:id>', views.description, name='description'),
     path('category/<int:id>', views.category, name='category'),
     path('like/<int:pk>', views.like, name='like_article'),
