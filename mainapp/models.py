@@ -15,7 +15,7 @@ class News(models.Model):
     image= models.ImageField(upload_to='imgs/')
     description=models.TextField()
     add_time=models.DateTimeField(auto_now_add=True)
-   
+    likes=models.ManyToManyField(User,related_name='article')
     class Meta:
         verbose_name_plural='News'
     def __str__(self):

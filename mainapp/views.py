@@ -48,3 +48,8 @@ def category(request,id):
         'category':category,
         'cats':categories,
     })
+def like(request, pk):
+    news = News.objects.get(id=pk)
+    news.likes.add(request.user)
+    return HttpResponseRedirect(reverse('description', args=[str(pk)]))
+
