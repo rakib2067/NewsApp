@@ -1,0 +1,61 @@
+{% extends "home.html" %}
+
+{% block content %}
+<!--Main-->
+  <main class="container mt-3 mb-5">
+  <p class='h1'>Latest News</p>
+    <div class="row my-3">
+    <!--Left-->
+      <div class="col-md-7">
+        <div class="card mb-3">
+          <img src='{{latest.image.url}}' class="card-img-top" alt="{{latest.title}}">
+          <div class="card-body">
+            <h5 class="card-title">{{latest.title}}</h5>
+            <hr/>
+            <p class="card-text">
+              <a href="/description/{{latest.id}}" class="btn btn-sm btn-primary">Read Full</a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--Right-->
+      <div class="col-md-5" >
+        {% for news in corresponding%}
+        <div class="card">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src='{{news.image.url}}' class="card-img-top" alt="{{news.title}}">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{news.title}}</h5>
+                <p class="card-text"><a href="/description/{{news.id}}" class="btn btn-sm btn-primary">Read Full</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr/>
+        {% endfor %}
+        
+      </div>
+    </div>
+    {%for category in cats%}
+    <h3 class="border-bottom pb-1">{{category.name}}  <a href="" class="float-right btn btn-sm btn-dark">In this Category</a></h3>
+	<div class="row my-4">
+		<!-- News box -->
+    {%for news in category.news_set.all%}
+		<div class="col-md-3">
+			<div class="card mb-3 shadow">
+			  <img src="{{news.image.url}}" class="card-img-top" alt="News 1">
+			  <div class="card-body">
+			    <h5 class="card-title">{{news.title}}</h5>
+			    <hr/>
+			    <p class="card-text"><a href="/description/{{news.id}}" class="btn btn-sm btn-primary">Read Full</a></p>
+			  </div>
+			</div>
+		</div>
+    {%endfor%}
+  </div>
+  {%endfor%}
+  </main>
+{% endblock %}

@@ -1,9 +1,7 @@
+{% extends "home.html" %}
 {% load crispy_forms_tags %}
 
-<head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-</head>
+{% block content %}
 <div class="content-section">
     <form method="POST" style="width: 500px; margin: auto" novalidate>
         {% csrf_token %}
@@ -25,3 +23,4 @@
         </small>
     </div>
 </div>
+{% endblock content %}

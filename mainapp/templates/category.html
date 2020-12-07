@@ -1,0 +1,27 @@
+{%extends 'home.html'%}
+{% block content %}
+
+<main class="container mt-3 mb-5">
+	<h3 class="border-bottom pb-1 my-4">{{category.name}}</h3>
+	<!-- News Box -->
+	{%for news in catnews%}
+	<div class="card mb-4 shadow">
+	  <div class="row no-gutters">
+	    <div class="col-md-3">
+	      <img src="{{news.image.url}}" class="card-img" alt="{{news.title}}">
+	    </div>
+	    <div class="col-md-8">
+	      <div class="card-body">
+	        <h5 class="card-title">{{news.title}}</h5>
+	        <p class="card-text">{{news.description}}</p>
+	        <p class="card-text"><a href="/description/{{news.id}}" class="btn btn-sm btn-primary">Read Full</a></p>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	{%endfor%}
+	
+</main>
+
+
+{% endblock %}
