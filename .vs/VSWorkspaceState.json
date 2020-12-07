@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\mainapp",
+    "\\mainapp\\templates",
+    "\\media\\profile_pics",
+    "\\NewsApp",
+    "\\users",
+    "\\users\\templates",
+    "\\users\\templates\\users"
+  ],
+  "SelectedNode": "\\users\\admin.py",
+  "PreviewInSolutionExplorer": false
+}
