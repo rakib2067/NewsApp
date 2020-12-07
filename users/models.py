@@ -9,4 +9,4 @@ class UserProfile(models.Model):
     dob = models.DateField(max_length=8)
 
     def __str__(self):
-        return f'{self.user.username}Profile '
+        return self.user.username

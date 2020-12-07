@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.contrib.auth.models import User
+from users.models import UserProfile
 class Category(models.Model):
     name= models.CharField(max_length=200)
     category_image= models.ImageField(upload_to='imgs')
@@ -14,7 +15,7 @@ class News(models.Model):
     image= models.ImageField(upload_to='imgs/')
     description=models.TextField()
     add_time=models.DateTimeField(auto_now_add=True)
-
+   
     class Meta:
         verbose_name_plural='News'
     def __str__(self):

@@ -1,9 +1,30 @@
+{% extends "home.html" %}
 {% load crispy_forms_tags %}
+{%block content%}
+<div class="container mt-4">   
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                   <div class="card-title mb-4">
+                            <div class="d-flex justify-content-start">
+                                <div class="image-container">
+                                    <img src="{{user.userprofile.image.url}}" id="imgProfile" style="width: 150px; height: 150px" class="rounded-circle account-img" />
+                                    <div class="middle">
+                                    </div>
+                                </div>
+                                <div class="userData ml-3">
+                                    <br><br>
+                                    <h2 class="account-heading" style="font-size: 1.5rem;">{{user.username}}</h2>
+                                    <h6 class="text-secondary">{{user.email}}</h6>
+                                   
+                                </div>                            
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>                    
+            </div>
+        </div> 
+</div>
 
-<head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-</head>
-
-<h2 style=" width: 500px; margin: auto; color: blue; font-family: Trebuchet MS; font-weight: bold;">{{user.username}}
-</h2>
+{%endblock%}

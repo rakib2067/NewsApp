@@ -1,14 +1,15 @@
 import datetime as D  # datetime library to get time for setting cookie
 import sys
 
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.utils import timezone
-from django.urls import path    
+from django.urls import path, reverse, reverse_lazy 
 from django.template import RequestContext, loader
-
+from django.http import HttpResponseRedirect
 from django.contrib.auth.hashers import make_password
 from django.db import IntegrityError
 from django.conf.urls.static import static
+
 
 from .models import News,Category
 def home(request):
@@ -47,4 +48,3 @@ def category(request,id):
         'category':category,
         'cats':categories,
     })
-
