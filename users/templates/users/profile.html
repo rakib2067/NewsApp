@@ -67,10 +67,12 @@
                                 <div class="form-group">
                                     <label class="form-check-label" for="exampleCheck1">Favourite Categories:</label>
                                     <select multiple class="form-control">
-                                        <option value="val1">Val1</option>
-                                        <option value="val2">Val2</option>
-                                        <option value="val3">Val3</option>
-                                        <option value="val4">Val4</option>
+                                    {% for cat in cats%}
+                                    <option value="{{cat.id}}">{{cat.name}}</option>
+              
+                                    {%endfor%}
+                                        
+                                        
                                     </select>
                                 </div>
 						            <button type="submit" name="submit" value="submit", class="btn btn-primary">Submit</button>

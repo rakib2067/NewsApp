@@ -54,8 +54,8 @@ def like(request, pk):
     #Like has been assigned from that user to that news object
     return HttpResponseRedirect(reverse('description', args=[str(pk)]))
 
-def favourite(request, pk):
-    news = News.objects.get(id=pk)
-    news.likes.add(request.user)
-    return HttpResponseRedirect(reverse('description', args=[str(pk)]))
+# def favourite(request):
+#     category = Category.objects.get(id=id)
+#     category.favourite.add(request.user)
+#     return HttpResponseRedirect(reverse('profile', args=[str(pk)]))
 
