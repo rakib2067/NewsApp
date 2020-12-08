@@ -17,7 +17,7 @@
 			  	 <a href="/category/{{news.category.id}}">{{news.category.title}}</a>
 				   <form action="{%url 'like_article' news.pk%}" method="POST">
 						{% csrf_token %}
-						<button type="submit" name="article_id" value={{"news.id"}}, class="btn btn-primary">Like</button>
+						<button type="submit" name="article_id" , class="btn btn-primary">Like</button>
 					
 					</form>
 			  </div>

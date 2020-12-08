@@ -9,9 +9,24 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.hashers import make_password
 from django.db import IntegrityError
 from django.conf.urls.static import static
-
+from users.models import UserProfile
 
 from .models import News,Category
+
+def loggedin(view):
+    ''' Decorator that tests whether user is logged in '''
+    def mod_view(request):
+        if 'username' in request.session:
+            username = request.session['username']
+            try: user = UserProfile.objects.get(username=username)
+            except UserProfile.DoesNotExist: raise Http404('User does not exist')
+            return view(request, user)
+            #This is a decorator which will check the value of username in the session
+            #If the username matches a user in db, then it will return the view function, along with the current user in the session
+            #Otherwise, if the user does not exist, then an error is raised
+        else:
+            return render(request,'not-logged-in.html',{})
+    return mod_view
 def home(request):
     latest=News.objects.first()
     corresponding=News.objects.all()[1:4]
@@ -54,8 +69,10 @@ def like(request, pk):
     #Like has been assigned from that user to that news object
     return HttpResponseRedirect(reverse('description', args=[str(pk)]))
 
-# def favourite(request):
-#     category = Category.objects.get(id=id)
-#     category.favourite.add(request.user)
-#     return HttpResponseRedirect(reverse('profile', args=[str(pk)]))
+@loggedin
+def favourite(request) :
+    category = request.POST.get('value')
+    user.favourite.add(category)
+    return HttpResponseRedirect('profile', args=[str(pk)])
+     
 

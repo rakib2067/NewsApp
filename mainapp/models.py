@@ -1,10 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-from users.models import UserProfile
+
 class Category(models.Model):
     name= models.CharField(max_length=200)
     category_image= models.ImageField(upload_to='imgs')
-    favourite=models.ManyToManyField(User)
     class Meta:
         verbose_name_plural='Categories'
     def __str__(self):
