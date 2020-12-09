@@ -56,11 +56,17 @@ def description(request, id):
     category=Category.objects.get(id=news.category.id)
     similar=News.objects.filter(category=category).exclude(id=id)
     categories=Category.objects.all()
+    is_liked = False
+    if news.likes.filter(id=request.user.id).exists():
+        is_liked = True
+    
     return render(request,'description.html',
     {
           'news':news,
           'similar':similar,
           'cats':categories,
+          'is_liked': is_liked,
+          'total_likes': news.total_likes()
     })
 
 def category(request,id):
@@ -74,9 +80,16 @@ def category(request,id):
         'category':category,
         'cats':categories,
     })
+    
 def like(request, pk):
     news = News.objects.get(id=pk)
-    news.likes.add(request.user)
+    is_liked = False
+    if news.likes.filter(id=request.user.id).exists():
+        news.likes.remove(request.user)
+        is_liked = False
+    else:
+        news.likes.add(request.user)
+        is_liked = True
     #Like has been assigned from that user to that news object
     return HttpResponseRedirect(reverse('description', args=[str(pk)]))
 

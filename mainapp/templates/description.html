@@ -7,30 +7,38 @@
 		<!-- Left -->
 		<div class="col-md-8">
 			<div class="card mb-3">
-                <img src='{{news.image.url}}' class="card-img-top" alt="{{news.title}}">
-			  <div class="card-body">
-			    <h5 class="card-title">{{news.title}}</h5>
-			    <hr/>
-			    <p class="card-text">{{news.description}}</p>
-			  </div>
-			  <div class="card-footer">
-			  	 <a href="/category/{{news.category.id}}">{{news.category.title}}</a>
-				   <form action="{%url 'like_article' news.pk%}" method="POST">
+				<img src='{{news.image.url}}' class="card-img-top" alt="{{news.title}}">
+				<div class="card-body">
+					<h5 class="card-title">{{news.title}}</h5>
+					<hr />
+					<p class="card-text">{{news.description}}</p>
+				</div>
+				<div class="card-footer">
+					<a href="/category/{{news.category.id}}">{{news.category.title}}</a>
+					<form action="{%url 'like_article' news.pk%}" method="POST">
 						{% csrf_token %}
-						<button type="submit" name="article_id" , class="btn btn-primary">Like</button>
-					
+						{% if user.is_authenticated %}
+						{% if is_liked %}
+						<button type="submit" name="article_id" , class="btn btn-danger">Dislike</button>
+						{% else %}
+						<button type="submit" name="article_id" , class="btn btn-primary">Like</button> Likes -
+						{{total_likes}}
+						{% endif %}
+						{% else %}
+						<small>Login To Like</small>
+						{% endif %}
 					</form>
-			  </div>
+				</div>
 			</div>
 
 			<!-- Comments -->
-			
+
 			<div class="card my-4">
 				<h6 class="card-header">Add Comment</h6>
 				<div class="card-body">
 					<form method="post">
-						
-						
+
+
 						<div class="form-group row">
 							<label class="col-md-2">Comment<span class="text-danger">*</span></label>
 							<div class="col-md-10">
@@ -44,23 +52,24 @@
 			<!-- Previous Comments -->
 			<div class="card my-4">
 				<h6 class="card-header">Comments</h6>
-				
+
 				<div class="card-body">
 					{%if not news.comments.all%}
 					<blockquote class="blockquote text-right">
-					  <p class="mb-0">No Comments yet...</p>
-					  <footer class="blockquote-footer"> <cite title="Source Title"></cite></footer>
+						<p class="mb-0">No Comments yet...</p>
+						<footer class="blockquote-footer"> <cite title="Source Title"></cite></footer>
 					</blockquote>
 					{% else %}
 					{%for comment in news.comments.all%}
 					<blockquote class="blockquote text-right">
-					  <p class="mb-0">{{comment.body}}</p>
-					  <footer class="blockquote-footer"> {{comment.name}}<cite title="Source Title">{{comment.name}}</cite></footer>
+						<p class="mb-0">{{comment.body}}</p>
+						<footer class="blockquote-footer"> {{comment.name}}<cite
+								title="Source Title">{{comment.name}}</cite></footer>
 					</blockquote>
 					{%endfor%}
 					{%endif%}
-					<hr/>
-					
+					<hr />
+
 				</div>
 			</div>
 		</div>
@@ -70,12 +79,13 @@
 			<!-- Category Box -->
 			{%for news in similar%}
 			<div class="card mb-3 shadow">
-			    <img src='{{news.image.url}}' class="card-img-top" alt="{{news.title}}">
-			  <div class="card-body">
-			    <h5 class="card-title">{{news.title}}</h5>
-			    <hr/>
-			    <p class="card-text"><a href="/description/{{news.id}}" class="btn btn-sm btn-primary">Read Full</a></p>
-			  </div>
+				<img src='{{news.image.url}}' class="card-img-top" alt="{{news.title}}">
+				<div class="card-body">
+					<h5 class="card-title">{{news.title}}</h5>
+					<hr />
+					<p class="card-text"><a href="/description/{{news.id}}" class="btn btn-sm btn-primary">Read Full</a>
+					</p>
+				</div>
 			</div>
 			{% endfor %}
 		</div>
@@ -83,6 +93,3 @@
 </main>
 
 {% endblock %}
-
-                    
-                        

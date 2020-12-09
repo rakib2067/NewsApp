@@ -20,6 +20,8 @@ class News(models.Model):
         verbose_name_plural='News'
     def __str__(self):
         return self.title
+    def total_likes(self):
+        return self.likes.count()
 
 class Comment(models.Model):
     news=models.ForeignKey(News, related_name="comments",on_delete=models.CASCADE) 
@@ -28,3 +30,5 @@ class Comment(models.Model):
     
     def __str__(self):
         return '%s - %s' % (self.news.title, self.name)
+
+    
