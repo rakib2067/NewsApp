@@ -27,6 +27,7 @@ class Comment(models.Model):
     news=models.ForeignKey(News, related_name="comments",on_delete=models.CASCADE)
     user=models.ForeignKey(User, related_name="comments",on_delete=models.CASCADE)  
     body=models.TextField()
+    reply = models.ForeignKey('Comment', null=True, related_name="replies", on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):

@@ -57,7 +57,7 @@ def description(request, id):
     news=News.objects.get(pk=id)
     category=Category.objects.get(id=news.category.id)
     similar=News.objects.filter(category=category).exclude(id=id)
-    comments = Comment.objects.filter(news=news).order_by('-id')
+    comments = Comment.objects.filter(news=news, reply=None).order_by('-id')
     categories=Category.objects.all()
     is_liked = False
     if news.likes.filter(id=request.user.id).exists():
@@ -67,7 +67,11 @@ def description(request, id):
         comment_form = CommentForm(request.POST or None)
         if comment_form.is_valid():
             body = request.POST.get('body')
-            comment = Comment.objects.create(news=news, user=request.user, body=body)
+            reply_id = request.POST.get('comment_id')
+            comment_qs= None
+            if reply_id:
+                comment_qs = Comment.objects.get(id=reply_id)
+            comment = Comment.objects.create(news=news, user=request.user, body=body, reply=comment_qs)
             comment.save()
     else:
         comment_form = CommentForm()
