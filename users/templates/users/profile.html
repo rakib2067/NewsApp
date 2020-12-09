@@ -22,7 +22,7 @@
         <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8">
           <div class="container">
             <h2>{{user.username}}</h2>
-            <p>Status: <b>User</b></p>
+            <p>DOB: <b>{{user.userprofile.dob}}</b></p>
             <form method="POST" enctype="multipart/form-data">
               {% csrf_token %}
               <fieldset class="form-group">
