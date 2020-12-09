@@ -49,28 +49,28 @@
 						</footer>
 					</blockquote>
 					<div class="replied-comments container mt-2" style="display: none;">
-						<div class="form-group row">
-							{% for reply in comment.replies.all %}
-							<blockquote class="blockquote text-right">
-								<p class="mb-0"><small>{{reply.body}}</small></p>
-								<footer class="blockquote-footer"><small><cite title="Source Title">by
-											{{reply.user}}</cite></small>
-								</footer>
-							</blockquote>
-							{% endfor %}
-							<form method="post">
-								{% csrf_token %}
-								<input type="hidden" name="comment_id" value="{{ comment.id }}">
-								{{comment_form.as_p}}
-								{% if user.is_authenticated %}
-								<input type="submit" value="Submit" class="btn btn-outline-success" />
-								{% else %}
-								<input type="submit" value="Submit" class="btn btn-outline-success" disabled />
-								<small>Login To
-									Comment</small>
-								{% endif %}
-							</form>
-						</div>
+						{% for reply in comment.replies.all %}
+						<blockquote class="blockquote text-right">
+							<p class="mb-0"><small>{{reply.body}}</small></p>
+							<footer class="blockquote-footer"><small><cite title="Source Title">by
+										{{reply.user}}</cite></small>
+							</footer>
+
+						</blockquote>
+						{% endfor %}
+						<form method="post">
+							{% csrf_token %}
+							<input type="hidden" name="comment_id" value="{{ comment.id }}">
+							{{comment_form.as_p}}
+							{% if user.is_authenticated %}
+							<input type="submit" value="Submit" class="btn btn-outline-success" />
+							{% else %}
+							<input type="submit" value="Submit" class="btn btn-outline-success" disabled />
+							<small>Login To
+								Comment</small>
+							{% endif %}
+						</form>
+
 					</div>
 					{%endfor%}
 					{%endif%}
