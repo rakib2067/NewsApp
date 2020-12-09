@@ -12,46 +12,23 @@ from django.conf.urls.static import static
 from users.models import UserProfile
 from .models import Comment
 from .forms import *
-
+from django.contrib.auth.decorators import login_required
 from .models import News,Category
 
-def loggedin(view):
-    ''' Decorator that tests whether user is logged in '''
-    def mod_view(request):
-        if 'username' in request.session:
-            username = request.session['username']
-            try: user = UserProfile.objects.get(username=username)
-            except UserProfile.DoesNotExist: raise Http404('User does not exist')
-            return view(request, user)
-            #This is a decorator which will check the value of username in the session
-            #If the username matches a user in db, then it will return the view function, along with the current user in the session
-            #Otherwise, if the user does not exist, then an error is raised
-        else:
-            return render(request,'not-logged-in.html',{})
-    return mod_view
+
+@login_required
 def home(request):
     latest=News.objects.first()
     corresponding=News.objects.all()[1:4]
     categories=Category.objects.all()
-    if 'username' in request.session:
-        username = request.session['username']
-        try: user = UserProfile.objects.get(username=username)
-        except UserProfile.DoesNotExist: raise Http404('User does not exist')
-        favcats=UserProfile.favourite
-        return render(request,'articles.html',{
+    x=request.user.userprofile.favourite.all()
+    return render(request,'articles.html',{
         'latest':latest,
         'corresponding':corresponding,
         'cats':categories,
-        'favcats':favcats
-        })   
-    #Fetches the first news article in the db
-    #Then fetches the next 3, setting a limit, skipping the already getched first and up to 3
-    else:
-        return render(request,'articles.html',{
-            'latest':latest,
-            'corresponding':corresponding,
-            'cats':categories,
-        })
+        'favcats':x
+ 
+    })
 
 def description(request, id):
     news=News.objects.get(pk=id)
