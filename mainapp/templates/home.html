@@ -9,15 +9,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
   {% comment %}
-  <link rel="stylesheet" href="{%static 'home.css'%}" {% endcomment %} <script
-    src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-  </script>
-  <script type="text/javascript">
-    $('.reply-btn').click(function () {
-      $(this).parent().parent().next('.replied-comments').fadeToggle();
-    });
-  </script>
-</head>
+  <link rel="stylesheet" href="{%static 'home.css'%}" {% endcomment %} </head>
 
 <body>
   <!--Navbar-->
@@ -89,6 +81,19 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
+
+  {% block main %}
+  {% endblock %}
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('.reply-btn').click(function (event) {
+        event.preventDefault();
+        $(this).parent().parent().next('.replied-comments').fadeToggle();
+      });
+    });
+  </script>
 </body>
 
 </html>
