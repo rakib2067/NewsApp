@@ -10,6 +10,8 @@ from django.contrib.auth.hashers import make_password
 from django.db import IntegrityError
 from django.conf.urls.static import static
 from users.models import UserProfile
+from .models import Comment
+from .forms import *
 
 from .models import News,Category
 
@@ -55,16 +57,28 @@ def description(request, id):
     news=News.objects.get(pk=id)
     category=Category.objects.get(id=news.category.id)
     similar=News.objects.filter(category=category).exclude(id=id)
+    comments = Comment.objects.filter(news=news).order_by('-id')
     categories=Category.objects.all()
     is_liked = False
     if news.likes.filter(id=request.user.id).exists():
         is_liked = True
     
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST or None)
+        if comment_form.is_valid():
+            body = request.POST.get('body')
+            comment = Comment.objects.create(news=news, user=request.user, body=body)
+            comment.save()
+    else:
+        comment_form = CommentForm()
+
     return render(request,'description.html',
     {
           'news':news,
           'similar':similar,
           'cats':categories,
+          'comments': comments,
+          'comment_form': comment_form,
           'is_liked': is_liked,
           'total_likes': news.total_likes()
     })

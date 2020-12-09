@@ -30,25 +30,6 @@
 					</form>
 				</div>
 			</div>
-
-			<!-- Comments -->
-
-			<div class="card my-4">
-				<h6 class="card-header">Add Comment</h6>
-				<div class="card-body">
-					<form method="post">
-
-
-						<div class="form-group row">
-							<label class="col-md-2">Comment<span class="text-danger">*</span></label>
-							<div class="col-md-10">
-								<textarea class="form-control" name="message" required></textarea>
-							</div>
-						</div>
-						<input type="submit" class="btn btn-primary" />
-					</form>
-				</div>
-			</div>
 			<!-- Previous Comments -->
 			<div class="card my-4">
 				<h6 class="card-header">Comments</h6>
@@ -56,20 +37,38 @@
 				<div class="card-body">
 					{%if not news.comments.all%}
 					<blockquote class="blockquote text-right">
-						<p class="mb-0">No Comments yet...</p>
+						<p class="mb-0">This article has no comments yet...</p>
 						<footer class="blockquote-footer"> <cite title="Source Title"></cite></footer>
 					</blockquote>
 					{% else %}
+					{{comments.count}} Comment{{comments|pluralize}}
 					{%for comment in news.comments.all%}
 					<blockquote class="blockquote text-right">
 						<p class="mb-0">{{comment.body}}</p>
-						<footer class="blockquote-footer"> {{comment.name}}<cite
-								title="Source Title">{{comment.name}}</cite></footer>
+						<footer class="blockquote-footer"><cite title="Source Title">by {{comment.user}}</cite></footer>
 					</blockquote>
 					{%endfor%}
 					{%endif%}
 					<hr />
 
+				</div>
+			</div>
+			<!-- Comments -->
+
+			<div class="card my-4">
+				<h6 class="card-header">Add Comment</h6>
+				<div class="card-body">
+					<form method="post">
+						{% csrf_token %}
+						{{comment_form.as_p}}
+						{% if user.is_authenticated %}
+						<input type="submit" value="Submit" class="btn btn-outline-success" />
+						{% else %}
+						<input type="submit" value="Submit" class="btn btn-outline-success" disabled />
+						<small>Login To
+							Comment</small>
+						{% endif %}
+					</form>
 				</div>
 			</div>
 		</div>
