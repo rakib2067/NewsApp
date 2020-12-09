@@ -1,100 +1,113 @@
-{% extends "home.html" %}
-{% load crispy_forms_tags %}
-{%block content%}
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+{% extends "home.html" %} {% load crispy_forms_tags %} {%block content%}
+<link
+  href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+  rel="stylesheet"
+  id="bootstrap-css"
+/>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>  
- <div class="container">    
-                  <div class="row">
-                      <div class="panel panel-default">
-                      <div class="panel-heading">  <h4 >User Profile</h4></div>
-                       <div class="panel-body">
-                      <div class="col-md-4 col-xs-12 col-sm-6 col-lg-4">
-                       <img alt="User Pic" src="{{user.userprofile.image.url}}" id="profile-image1" class="img-circle img-responsive"> 
-                      </div>
-                      <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8" >
-                          <div class="container" >
-                            <h2>{{user.username}}</h2>
-                            <p>Status:  <b>User</b></p>
-                            <form method="POST" enctype="multipart/form-data">
-                            {% csrf_token %}
-                                <fieldset class="form-group">
-                               
-                                {{form|crispy}}
-                                {{p_form|crispy}}
-                                </fieldset>
-                                <div class="form-group" style=" width: 100px; margin: auto">
-                                
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<div class="container">
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading"><h4>User Profile</h4></div>
+      <div class="panel-body">
+        <div class="col-md-4 col-xs-12 col-sm-6 col-lg-4">
+          <img
+            alt="User Pic"
+            src="{{user.userprofile.image.url}}"
+            id="profile-image1"
+            class="img-circle img-responsive"
+          />
+        </div>
+        <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8">
+          <div class="container">
+            <h2>{{user.username}}</h2>
+            <p>Status: <b>User</b></p>
+            <form method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <fieldset class="form-group">
+                {{p_form|crispy}} {{u_form|crispy}}
+              </fieldset>
+              <div class="form-group" style="width: 100px; margin: auto"></div>
+              <button
+                type="submit"
+                name="submit"
+                value="submit"
+                ,
+                class="btn btn-primary"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+          <hr />
+          <ul class="container details">
+            <li>
+              <p>
+                <span
+                  class="glyphicon glyphicon-envelope one"
+                  style="width: 50px"
+                ></span
+                >{{user.email}}
+              </p>
+            </li>
+          </ul>
 
-                            </div>
-                            <button type="submit" name="submit" value="submit", class="btn btn-primary">Submit</button>
-                        </form>
-                            
-                           
-                          </div>
-                           <hr>
-                          <ul class="container details" >
-                            
-                            <li><p><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span>{{user.email}}</p></li>
-                          </ul>
-                          <form action="{%url 'favourite' %}" method="POST">
-						        {% csrf_token %}
-                                <div class="form-group">
-                                    <label class="form-check-label" for="exampleCheck1">Favourite Categories:</label>
-                                    <select multiple class="form-control">
-                                    {% for cat in cats%}
-                                    <option value="{{cat.id}}">{{cat.name}}</option>
-              
-                                    {%endfor%}
-                                        
-                                        
-                                    </select>
-                                </div>
-						            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-					
-					            </form>
-                          <hr>
-                      </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%endblock%} {% comment %}
+  <div class="container mt-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title mb-4">
+            <div class="d-flex justify-content-start">
+              <div class="row my-3">
+                <div class="image-container">
+                  <img
+                    src="{{user.userprofile.image.url}}"
+                    id="imgProfile"
+                    style="width: 150px; height: 150px"
+                    class="rounded-circle account-img"
+                  />
+                  <div class="middle"></div>
                 </div>
-            </div>
-            </div>
+                <div class="userData ml-3">
+                  <br /><br />
+                  <h2 class="account-heading" style="font-size: 1.5rem">
+                    {{user.username}}
+                  </h2>
+                  <h6 class="text-secondary">{{user.email}}</h6>
 
-{%endblock%}
-{% comment %} <div class="container mt-4">   
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                   <div class="card-title mb-4">
-                            <div class="d-flex justify-content-start">
-                                <div class = "row my-3">
-                                <div class="image-container">
-                                    <img src="{{user.userprofile.image.url}}" id="imgProfile" style="width: 150px; height: 150px" class="rounded-circle account-img" />
-                                    <div class="middle">
-                                    </div>
-                                </div>
-                                <div class="userData ml-3">
-                                    <br><br>
-                                    <h2 class="account-heading" style="font-size: 1.5rem;">{{user.username}}</h2>
-                                    <h6 class="text-secondary">{{user.email}}</h6>
-
-                                    <form action="" method="POST">
-						                {% csrf_token %}
-                                        <select multiple class="form-control">
-                                            <option value="val1">Val1</option>
-                                            <option value="val2">Val2</option>
-                                            <option value="val3">Val3</option>
-                                            <option value="val4">Val4</option>
-                                            </select>
-						                <button type="submit" name="submit" value="submit", class="btn btn-primary">Submit</button>
-					
-					            </form>
-                                   </div>
-                                </div>                            
-                            </div>
-                        </div>
-                    
-                    </div>
-                </div>                    
+                  <form action="" method="POST">
+                    {% csrf_token %}
+                    <select multiple class="form-control">
+                      <option value="val1">Val1</option>
+                      <option value="val2">Val2</option>
+                      <option value="val3">Val3</option>
+                      <option value="val4">Val4</option>
+                    </select>
+                    <button
+                      type="submit"
+                      name="submit"
+                      value="submit"
+                      ,
+                      class="btn btn-primary"
+                    >
+                      Submit
+                    </button>
+                  </form>
+                </div>
+              </div>
             </div>
-        </div> 
-</div> {% endcomment %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endcomment %}

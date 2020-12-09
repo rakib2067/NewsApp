@@ -31,14 +31,25 @@ def home(request):
     latest=News.objects.first()
     corresponding=News.objects.all()[1:4]
     categories=Category.objects.all()
-    
-    #Fetches the first news article in the db
-    #Then fetches the next 3, setting a limit, skipping the already getched first and up to 3
-    return render(request,'articles.html',{
+    if 'username' in request.session:
+        username = request.session['username']
+        try: user = UserProfile.objects.get(username=username)
+        except UserProfile.DoesNotExist: raise Http404('User does not exist')
+        favcats=UserProfile.favourite
+        return render(request,'articles.html',{
         'latest':latest,
         'corresponding':corresponding,
         'cats':categories,
-    })
+        'favcats':favcats
+        })   
+    #Fetches the first news article in the db
+    #Then fetches the next 3, setting a limit, skipping the already getched first and up to 3
+    else:
+        return render(request,'articles.html',{
+            'latest':latest,
+            'corresponding':corresponding,
+            'cats':categories,
+        })
 
 def description(request, id):
     news=News.objects.get(pk=id)
@@ -68,11 +79,4 @@ def like(request, pk):
     news.likes.add(request.user)
     #Like has been assigned from that user to that news object
     return HttpResponseRedirect(reverse('description', args=[str(pk)]))
-
-@loggedin
-def favourite(request) :
-    category = request.POST.get('value')
-    user.favourite.add(category)
-    return HttpResponseRedirect('profile', args=[str(pk)])
-     
 
