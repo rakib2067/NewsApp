@@ -1,6 +1,5 @@
 import datetime as D  # datetime library to get time for setting cookie
 import sys
-
 from django.shortcuts import render,get_object_or_404
 from django.utils import timezone
 from django.urls import path, reverse, reverse_lazy 
@@ -20,8 +19,12 @@ from .models import News,Category
 def home(request):
     latest=News.objects.first()
     corresponding=News.objects.all()[1:4]
+    #We have fetched the latest article in the news object
+    #Then we fetcjed the next 3 latest articles stored in corresponding
     categories=Category.objects.all()
+    #This is used for the dropdown in nac
     x=request.user.userprofile.favourite.all()
+    #Used to filter the users articles
     return render(request,'articles.html',{
         'latest':latest,
         'corresponding':corresponding,
@@ -30,11 +33,14 @@ def home(request):
  
     })
 
+
 def description(request, id):
     news=News.objects.get(pk=id)
     category=Category.objects.get(id=news.category.id)
     similar=News.objects.filter(category=category).exclude(id=id)
+    #Used to filter articles to those similar to the current cateogry
     comments = Comment.objects.filter(news=news, reply=None).order_by('-id')
+    #Used to order comments
     categories=Category.objects.all()
     is_liked = False
     if news.likes.filter(id=request.user.id).exists():
@@ -50,6 +56,7 @@ def description(request, id):
                 comment_qs = Comment.objects.get(id=reply_id)
             comment = Comment.objects.create(news=news, user=request.user, body=body, reply=comment_qs)
             comment.save()
+            #Saves a comment in the db
     else:
         comment_form = CommentForm()
 
@@ -87,4 +94,5 @@ def like(request, pk):
         is_liked = True
     #Like has been assigned from that user to that news object
     return HttpResponseRedirect(reverse('description', args=[str(pk)]))
+    
 

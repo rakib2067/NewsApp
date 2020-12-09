@@ -19,7 +19,10 @@ def register(request):
 
             username = form.cleaned_data.get('username')
             messages.success(request, f'Your account has now been created')
+            #Register completion
             return redirect('login')
+            #Redirects to login page
+            
     else:
         form = UserRegisterForm()
         profile_form = UserProfileForm()
@@ -33,6 +36,7 @@ def profile(request):
     if request.method=='POST':
         p_form=ProfileUpdateForm(request.POST, request.FILES,instance=request.user.userprofile) 
         u_form=UserUpdateForm(request.POST,instance=request.user.userprofile)
+        #Both forms hold different data, one for profile pic, the other for users fav cats
         if p_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
