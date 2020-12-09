@@ -5,7 +5,7 @@ admin.site.register(Category)
 class NewsAdmin(admin.ModelAdmin):
     list_display= ('title', 'category', 'add_time')
 class CommentAdmin(admin.ModelAdmin):
-    list_display= ('news', 'email', 'comment','status')   
+    list_display= ('news', 'body', 'name')   
 admin.site.register(News,NewsAdmin)
 admin.site.register(Comment,CommentAdmin)
 

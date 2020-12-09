@@ -32,3 +32,7 @@ class UserProfileForm(forms.ModelForm):
             'dob': forms.DateInput(attrs={'type':'date', 'class': 'form-control'})
         }
  
+class ProfileUpdateForm(forms.ModelForm):
+     class Meta:
+         model=UserProfile
+         fields=['image']

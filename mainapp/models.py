@@ -22,10 +22,9 @@ class News(models.Model):
         return self.title
 
 class Comment(models.Model):
-    news=models.ForeignKey(News, on_delete=models.CASCADE) 
+    news=models.ForeignKey(News, related_name="comments",on_delete=models.CASCADE) 
     name=models.CharField(max_length=100)
-    email=models.CharField(max_length=200)
-    comment=models.TextField()
-    status=models.BooleanField(default=False)
+    body=models.TextField()
+    
     def __str__(self):
-        return self.comment
+        return '%s - %s' % (self.news.title, self.name)

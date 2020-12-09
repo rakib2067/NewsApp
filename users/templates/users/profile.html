@@ -16,7 +16,20 @@
                           <div class="container" >
                             <h2>{{user.username}}</h2>
                             <p>Status:  <b>User</b></p>
+                            <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                                <fieldset class="form-group">
+                               
+                                {{form|crispy}}
+                                {{p_form|crispy}}
+                                </fieldset>
+                                <div class="form-group" style=" width: 100px; margin: auto">
+                                
+
+                            </div>
                             <button type="submit" name="submit" value="submit", class="btn btn-primary">Submit</button>
+                        </form>
+                            
                            
                           </div>
                            <hr>
